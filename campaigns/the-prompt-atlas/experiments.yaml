@@ -1,0 +1,86 @@
+# Experimental Design Matrix
+# Implements the experimental program described in the campaign plan, §7.
+# Each `runs:` entry corresponds to one invocation of MiroFish's
+# run_parallel_simulation.py (or its single-platform variants).
+
+campaign: the-prompt-atlas-2026
+default_repeats: 3            # bump to 5 once a finalist set is identified
+default_rounds: 40            # cap per MiroFish guidance; expand later
+default_platforms: [twitter, reddit]
+random_seeds: [11, 23, 47, 89, 113]  # 5 fixed seeds; use first `default_repeats`
+
+# Baseline ---------------------------------------------------------------
+baseline:
+  id: B0
+  description: "Organic trajectory with no marketing intervention beyond the book existing in retail catalogs."
+  intervention: none
+  repeats: 5
+
+# Single-route runs ------------------------------------------------------
+single_route_runs:
+  # One run per (route_id, budget_tier). Cross with default_repeats.
+  routes: all_in_routes.yaml
+  budget_tiers: [low, medium, high]
+  message_framings: [humanistic]     # baseline framing; sweep separately below
+
+# Bundle runs ------------------------------------------------------------
+bundle_runs:
+  bundles:
+    - balanced_trio
+    - thought_leader_stack
+    - retail_blitz
+    - compounding_flywheel
+  budget_tiers: [medium, high]       # bundles only make sense at higher spend
+
+# Sensitivity sweeps -----------------------------------------------------
+sensitivity_sweeps:
+  - dimension: budget_tier
+    values: [low, medium, high]
+    applied_to: top_3_single_routes
+  - dimension: launch_timing
+    values: [pre_launch_60d, at_launch, post_launch_30d]
+    applied_to: top_3_single_routes
+  - dimension: message_framing
+    values: [technical, humanistic, provocative]
+    applied_to: top_3_single_routes
+
+# Adversarial runs -------------------------------------------------------
+adversarial_runs:
+  - id: ADV_skeptic_oped
+    description: "At round 8, inject a high-profile AI-skeptic op-ed criticizing 'yet another AI book' framing. Posted by a journalist-cohort agent with high reach."
+    injection:
+      round: 8
+      platform: twitter
+      author_cohort: ai_skeptic
+      post_template: |
+        "Another AI book promising a 'recursive map.' We don't need cartography;
+        we need accountability. The Prompt Atlas is the canonical example of
+        techno-optimist literature that softens the labor question."
+    applied_to: top_3_single_routes + top_3_bundles
+
+  - id: ADV_model_collapse_cycle
+    description: "At round 12, inject 3 news posts about a high-profile 'model collapse' incident depressing AI sentiment for 5 rounds."
+    injection:
+      round: 12
+      duration_rounds: 5
+      sentiment_delta: -0.3
+    applied_to: top_3_single_routes
+
+# Aggregation ------------------------------------------------------------
+aggregation:
+  primary_rank_metric: risk_adjusted_score   # mean − 1σ across repeats
+  secondary_rank_metric: mean_objective_score
+  flag_for_re_simulation_if:
+    - "stddev(objective_score) > 0.20"
+    - "any cohort penetration outlier > 2σ from cross-route mean"
+
+# Cost guardrails --------------------------------------------------------
+# NOTE: These guardrails govern the *simulation engine cost* (LLM tokens spent
+# running MiroFish), NOT the real-world marketing budget. The marketing budgets
+# being simulated are defined in routes.yaml under `budget_tiers:` and range up
+# to USD 100,000 at the `high` tier.
+cost_guardrails:
+  max_rounds_per_run: 50
+  max_agents_per_run: 200
+  abort_if_token_spend_exceeds_usd: 50    # per single run (LLM API cost)
+  total_campaign_budget_usd: 800           # total LLM API cost for the whole tournament
