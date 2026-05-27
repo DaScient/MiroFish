@@ -1,0 +1,216 @@
+# Marketing Route Catalog — *The Prompt Atlas*
+# Each `route` is one intervention that will be injected at round 0 of a
+# MiroFish simulation as an "initial post" cluster + ongoing scheduled posts.
+# Run one simulation per route at each budget tier; rank by ROI in
+# `metrics.md`.
+
+campaign: the-prompt-atlas-2026
+currency: USD
+
+budget_tiers:
+  low:    {amount: 5000,   note: "Lean: rely on owned audience + earned media."}
+  medium: {amount: 25000,  note: "Targeted paid amplification + 1-2 boutique services."}
+  high:   {amount: 100000, note: "Full launch: PR firm + tour + ad spend + speaking."}
+
+# ---------------------------------------------------------------------------
+# A. MEDIA-OUTREACH ROUTES
+# ---------------------------------------------------------------------------
+routes:
+
+  - id: A1_podcast_tour
+    group: media
+    name: "Long-form podcast tour"
+    channels:
+      - "Lex Fridman Podcast"
+      - "Hard Fork (NYT)"
+      - "The Ezra Klein Show"
+      - "Cognitive Revolution"
+      - "Latent Space"
+      - "The Gradient"
+    cadence: "1 booking / week for 6 weeks"
+    audience: ["ai_practitioner", "generalist_reader", "academic"]
+    message_framings:
+      technical:   "The recursive map: prompt engineering as cartography, not commands."
+      humanistic:  "A guide for AI *and* humanity — what the alignment problem owes the humanities."
+      provocative: "Why every AI book published this year is solving the wrong problem."
+    cost_by_tier: {low: 0, medium: 4000, high: 15000}  # publicist booking fees
+    expected_lift_hint: "Highest single-route reach for the generalist/practitioner blend."
+
+  - id: A2_oped_campaign
+    group: media
+    name: "Op-ed campaign in tier-1 outlets"
+    channels: ["Wired", "The Atlantic", "MIT Technology Review", "Noema", "WIRED Ideas"]
+    cadence: "3 pitched op-eds over 8 weeks"
+    audience: ["journalist", "generalist_reader", "academic", "enterprise_ld"]
+    message_framings:
+      humanistic:  "Intelligence in motion: why the next AI debate is about meaning, not capability."
+      provocative: "Stop teaching prompts. Start teaching cartography."
+    cost_by_tier: {low: 0, medium: 6000, high: 18000}
+
+  - id: A3_newsletter_crossposts
+    group: media
+    name: "Cross-posts on flagship Substacks"
+    channels:
+      - "Stratechery (Ben Thompson)"
+      - "Import AI (Jack Clark)"
+      - "One Useful Thing (Ethan Mollick)"
+      - "Astral Codex Ten"
+      - "Platformer"
+    cadence: "1 cross-post or mention every 10 days for 12 weeks"
+    audience: ["ai_practitioner", "academic", "generalist_reader"]
+    message_framings:
+      technical:  "A toolkit per chapter — and why the toolkit is the point."
+      humanistic: "What recursion teaches us about being human in the age of AI."
+    cost_by_tier: {low: 0, medium: 3000, high: 9000}
+
+  - id: A4_launch_pr_push
+    group: media
+    name: "Launch-week PR push via DaScient Press"
+    channels: ["wire", "Goodreads", "Publishers Weekly", "Kirkus Reviews"]
+    cadence: "Concentrated 7-day burst at publication"
+    audience: ["journalist", "generalist_reader", "educator_librarian"]
+    message_framings:
+      humanistic: "A map for minds, not machines."
+    cost_by_tier: {low: 1500, medium: 8000, high: 25000}
+
+# ---------------------------------------------------------------------------
+# B. ACADEMIC / EDUCATIONAL ROUTES
+# ---------------------------------------------------------------------------
+
+  - id: B1_syllabus_toolkit
+    group: academic
+    name: "Free PDF chapters + syllabus toolkit to .edu lists"
+    channels: ["CCCC", "AERA mailing lists", "POD Network", "EDUCAUSE", "ACM SIGCSE"]
+    cadence: "One push at semester-planning windows (Apr + Oct)"
+    audience: ["academic", "educator_librarian"]
+    message_framings:
+      humanistic: "Assignable cross-disciplinary AI literacy in one volume."
+    cost_by_tier: {low: 200, medium: 1500, high: 4000}
+
+  - id: B2_conference_track
+    group: academic
+    name: "Conference presence: NeurIPS social, ACL, AAAI, AERA, EDUCAUSE, SXSW EDU"
+    channels: ["NeurIPS", "ACL", "AAAI", "AERA", "EDUCAUSE", "SXSW EDU"]
+    cadence: "1 conference per 6 weeks"
+    audience: ["academic", "ai_practitioner", "educator_librarian"]
+    message_framings:
+      technical:  "Prompt-engineering as research method."
+      humanistic: "Curriculum-ready AI literacy across disciplines."
+    cost_by_tier: {low: 1500, medium: 8000, high: 30000}
+
+  - id: B3_adopt_a_course
+    group: academic
+    name: "'Adopt-a-course': free desk copies + slide decks for professors"
+    channels: ["faculty referral", "Twitter/X /#AcademicTwitter", "LinkedIn academic groups"]
+    cadence: "Rolling, 50 desk copies per quarter"
+    audience: ["academic", "educator_librarian"]
+    message_framings:
+      humanistic: "Adopt the Atlas as your AI-literacy spine."
+    cost_by_tier: {low: 600, medium: 3000, high: 9000}
+
+  - id: B4_arxiv_companion
+    group: academic
+    name: "Companion arXiv preprint distilling the framework"
+    channels: ["arXiv cs.CY", "arXiv cs.CL", "Semantic Scholar"]
+    cadence: "One preprint 4 weeks pre-launch; v2 at launch"
+    audience: ["academic", "ai_practitioner"]
+    message_framings:
+      technical: "A formal sketch of recursive prompt cartography with empirical examples."
+    cost_by_tier: {low: 0, medium: 800, high: 2000}
+
+# ---------------------------------------------------------------------------
+# C. DIRECT-SALES / RETAIL ROUTES
+# ---------------------------------------------------------------------------
+
+  - id: C1_booktok_reels
+    group: sales
+    name: "BookTok/Reels: one-prompt-per-chapter series"
+    channels: ["TikTok #BookTok", "Instagram Reels", "YouTube Shorts"]
+    cadence: "14 short videos over 6 weeks, plus 5 creator partnerships"
+    audience: ["booktok_creator", "generalist_reader"]
+    message_framings:
+      provocative: "What if your inner life had a prompt?"
+      humanistic:  "One question per chapter — the world looks different by the end."
+    cost_by_tier: {low: 400, medium: 4000, high: 18000}
+
+  - id: C2_arc_campaign
+    group: sales
+    name: "Goodreads + NetGalley ARC campaign 60 days pre-launch"
+    channels: ["Goodreads giveaways", "NetGalley", "Edelweiss+"]
+    cadence: "ARCs distributed 60-day window pre-launch"
+    audience: ["generalist_reader", "educator_librarian", "journalist"]
+    message_framings:
+      humanistic: "Be among the first 500 to walk the Atlas."
+    cost_by_tier: {low: 500, medium: 2500, high: 7000}
+
+  - id: C3_retailer_features
+    group: sales
+    name: "Barnes & Noble pre-order push + Apple Books featured submission"
+    channels: ["B&N pre-order banner", "Apple Books editorial", "B&N table placement"]
+    cadence: "Pre-launch 30-day pre-order window; editorial pitch 90 days prior"
+    audience: ["generalist_reader", "educator_librarian"]
+    message_framings:
+      humanistic: "The 2026 AI book your shelf actually needs."
+    cost_by_tier: {low: 0, medium: 5000, high: 20000}
+
+  - id: C4_collector_drop
+    group: sales
+    name: "Limited collector hardcover drop (Kickstarter-style)"
+    channels: ["DaScient Press list", "X", "Kickstarter or BackerKit"]
+    cadence: "One drop window, 30 days"
+    audience: ["ai_practitioner", "generalist_reader", "booktok_creator"]
+    message_framings:
+      humanistic: "Numbered, embossed, foil-stamped — the recursive map as object."
+    cost_by_tier: {low: 1500, medium: 6000, high: 15000}
+
+# ---------------------------------------------------------------------------
+# D. COMMUNITY / COMPOUNDING ROUTES
+# ---------------------------------------------------------------------------
+
+  - id: D1_repo_challenges
+    group: community
+    name: "Monthly prompt-engineering challenges in the companion repo"
+    channels: ["GitHub", "X", "Discord"]
+    cadence: "One challenge per month for 12 months"
+    audience: ["ai_practitioner", "academic", "generalist_reader"]
+    message_framings:
+      technical: "Each month, a new chapter of the Atlas becomes a challenge."
+    cost_by_tier: {low: 0, medium: 800, high: 2500}
+
+  - id: D2_reader_discord
+    group: community
+    name: "Reader Discord/Slack feeding v-next"
+    channels: ["Discord"]
+    cadence: "Always-on; weekly author AMA"
+    audience: ["ai_practitioner", "generalist_reader", "academic"]
+    message_framings:
+      humanistic: "Help write the next edition."
+    cost_by_tier: {low: 0, medium: 1200, high: 4000}
+
+  - id: D3_speaking_circuit
+    group: community
+    name: "Speaking circuit: TED-style talk + 6 university visits"
+    channels: ["TEDx", "university lecture series", "company L&D events"]
+    cadence: "One talk per 3 weeks for a semester"
+    audience: ["academic", "enterprise_ld", "generalist_reader", "journalist"]
+    message_framings:
+      humanistic:  "How to read the future, one prompt at a time."
+      provocative: "We have been training intelligence wrong."
+    cost_by_tier: {low: 1000, medium: 6000, high: 25000}
+
+# ---------------------------------------------------------------------------
+# Suggested starter bundles (Section 7 of the plan)
+# ---------------------------------------------------------------------------
+bundles:
+  balanced_trio:
+    description: "One media + one academic + one direct-sales route."
+    routes: [A1_podcast_tour, B3_adopt_a_course, C1_booktok_reels]
+  thought_leader_stack:
+    description: "Optimize for academic + journalist resonance."
+    routes: [A2_oped_campaign, A3_newsletter_crossposts, B2_conference_track, B4_arxiv_companion]
+  retail_blitz:
+    description: "Optimize for week-1 sales velocity."
+    routes: [A4_launch_pr_push, C2_arc_campaign, C3_retailer_features, C1_booktok_reels]
+  compounding_flywheel:
+    description: "Slow start, durable growth — ideal if budget is sustained."
+    routes: [D1_repo_challenges, D2_reader_discord, D3_speaking_circuit, B3_adopt_a_course]

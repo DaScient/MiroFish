@@ -1,0 +1,135 @@
+{
+  "_comment": "MiroFish-ready skeleton config for The Prompt Atlas marketing simulation. Drop this into backend/scripts/run_parallel_simulation.py via --config. The `agent_configs` array should be expanded by MiroFish's profile generator using personas.json; here we include a small worked example to illustrate the expected fields. Swap `event_config.initial_posts` per route in routes.yaml to run each marketing route.",
+  "simulation_id": "the-prompt-atlas-B0-baseline",
+  "campaign": "the-prompt-atlas-2026",
+  "llm_model": "qwen-plus",
+  "time_config": {
+    "total_simulation_hours": 72,
+    "minutes_per_round": 30,
+    "agents_per_hour_min": 5,
+    "agents_per_hour_max": 20,
+    "peak_hours": [9, 10, 11, 14, 15, 20, 21, 22],
+    "off_peak_hours": [0, 1, 2, 3, 4, 5],
+    "peak_activity_multiplier": 1.5,
+    "off_peak_activity_multiplier": 0.3
+  },
+  "event_config": {
+    "_comment": "BASELINE run = no marketing intervention. Replace `initial_posts` with the route-specific intervention block (see routes.yaml) when running A1/A2/.../D3.",
+    "initial_posts": []
+  },
+  "agent_configs": [
+    {
+      "_comment": "Example seed agents. Replace this array with MiroFish-generated profiles seeded from campaigns/the-prompt-atlas/personas.json. The 8 examples below cover one agent per cohort so the file is usable as-is for a smoke test.",
+      "agent_id": 0,
+      "entity_name": "AI Practitioner — Maya",
+      "cohort_id": "ai_practitioner",
+      "persona": "Maya is a senior ML engineer at a mid-size AI startup. Late 20s. Skeptical of hype, hungry for tools that compress work. Active on X and Hacker News. Reads Ethan Mollick and Simon Willison.",
+      "interested_topics": ["AI", "LLMs", "prompt engineering", "productivity"],
+      "mbti": "INTJ",
+      "profession": "ML engineer"
+    },
+    {
+      "agent_id": 1,
+      "entity_name": "Academic — Prof. Reyes",
+      "cohort_id": "academic",
+      "persona": "Tenured associate professor of philosophy and AI ethics. Adopts books for courses that bridge humanities and ML and include assignable exercises. 45. Writes for both peers and the educated public.",
+      "interested_topics": ["AI ethics", "epistemology", "STS", "education"],
+      "mbti": "INTP",
+      "profession": "Professor"
+    },
+    {
+      "agent_id": 2,
+      "entity_name": "Journalist — Sam",
+      "cohort_id": "journalist",
+      "persona": "Tech-culture journalist covering AI's impact on work and society. Pitches Wired, MIT Tech Review, Hard Fork. Triggers: a non-obvious angle and a quotable thesis. 35.",
+      "interested_topics": ["AI policy", "labor and AI", "media"],
+      "mbti": "ENFP",
+      "profession": "Journalist",
+      "tier": "T1"
+    },
+    {
+      "agent_id": 3,
+      "entity_name": "Librarian — Priya",
+      "cohort_id": "educator_librarian",
+      "persona": "University reference librarian leading AI-literacy programming. Decision criteria: classroom-ready exercises, equity-aware framing, durable hardcover, OverDrive availability. 40.",
+      "interested_topics": ["AI literacy", "library acquisitions", "info literacy"],
+      "mbti": "ISFJ",
+      "profession": "Librarian"
+    },
+    {
+      "agent_id": 4,
+      "entity_name": "Generalist Reader — Theo",
+      "cohort_id": "generalist_reader",
+      "persona": "Knowledge worker who reads 10 big-idea nonfiction books a year. Reads Mollick, Christian, Suleyman, Harari. Buys when at least two trusted signals converge. 38.",
+      "interested_topics": ["ideas", "futurism", "philosophy", "nonfiction"],
+      "mbti": "INFJ",
+      "profession": "Product manager"
+    },
+    {
+      "agent_id": 5,
+      "entity_name": "BookTok Creator — Lia",
+      "cohort_id": "booktok_creator",
+      "persona": "BookTok creator, 23, 180k followers. Decides in 15s on aesthetics + a quotable hook. Loves recursive visual metaphors and 'one prompt per chapter' formats that map to short video.",
+      "interested_topics": ["BookTok", "aesthetic books", "nonfiction"],
+      "mbti": "ENFP",
+      "profession": "Creator"
+    },
+    {
+      "agent_id": 6,
+      "entity_name": "L&D Lead — Hassan",
+      "cohort_id": "enterprise_ld",
+      "persona": "L&D lead at a 12,000-person company rolling out AI upskilling. Buys 50-250 copies if the book pairs with a workshop or speaker. Wants a humanistic frame to balance internal techno-optimism. 44.",
+      "interested_topics": ["L&D", "AI upskilling", "change management"],
+      "mbti": "ENTJ",
+      "profession": "L&D leader"
+    },
+    {
+      "agent_id": 7,
+      "entity_name": "AI Skeptic — Devi",
+      "cohort_id": "ai_skeptic",
+      "persona": "AI-critical academic and labor organizer. Reads Bender, Gebru, Hao. Will publicly object to techno-utopian framings but engages seriously with humanistic / labor-aware framings. 41.",
+      "interested_topics": ["AI ethics", "labor", "techno-criticism"],
+      "mbti": "INFJ",
+      "profession": "Academic / organizer"
+    }
+  ],
+  "_route_intervention_examples": {
+    "_comment": "Copy any one of the blocks below into event_config.initial_posts to simulate that route. Cadence and follow-up posts are scheduled via MiroFish's event scheduler; this file shows only the initial seed posts.",
+    "A1_podcast_tour": [
+      {
+        "poster_agent_id": 2,
+        "content": "Just recorded a 90-min episode with the author of THE PROMPT ATLAS: KRONOS EDITION. Best framing of prompt engineering I've heard all year — 'recursive cartography for minds, not machines.' Drops Tuesday. https://promptatlas.dascient.org"
+      }
+    ],
+    "A2_oped_campaign": [
+      {
+        "poster_agent_id": 2,
+        "content": "My piece in @WIRED on why the next AI debate isn't about capability but about *meaning*. Inspired by Kronos Edition of The Prompt Atlas (DaScient Press)."
+      }
+    ],
+    "B1_syllabus_toolkit": [
+      {
+        "poster_agent_id": 1,
+        "content": "Sharing a free syllabus toolkit for AI-literacy courses, built around THE PROMPT ATLAS. 14 chapters, one prompt-engineering exercise each. Open-access PDFs of two sample chapters: https://promptatlas.dascient.org #AcademicTwitter"
+      }
+    ],
+    "C1_booktok_reels": [
+      {
+        "poster_agent_id": 5,
+        "content": "ok hear me out — one prompt per chapter and your inner life looks different by the end ✨ The Prompt Atlas, Kronos Edition. #BookTok #NonfictionBookTok"
+      }
+    ],
+    "C2_arc_campaign": [
+      {
+        "poster_agent_id": 4,
+        "content": "Got an ARC of The Prompt Atlas: Kronos Edition from NetGalley. Already underlining like it's grad school. Out in 60 days."
+      }
+    ],
+    "D3_speaking_circuit": [
+      {
+        "poster_agent_id": 6,
+        "content": "Hosting the author of THE PROMPT ATLAS for our company's AI upskilling kickoff next month. Ordering 200 hardcovers for the cohort."
+      }
+    ]
+  }
+}
